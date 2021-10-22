@@ -5,8 +5,8 @@ const elNext = document.querySelector(".js-next");
 const searchButton = document.querySelector(".searchButton")
 const Input = document.getElementById('elInput')
 
-let page = 1;
 searchButton.addEventListener('click',function(event){
+  let page = 1;
   function getData(page) {
     fetch(`http://www.omdbapi.com/?apikey=d83224c7&s=${Input.value}&page=${page}`)
       .then((response) => response.json())
