@@ -11,8 +11,6 @@ searchButton.addEventListener('click',function(event){
     fetch(`http://www.omdbapi.com/?apikey=d83224c7&s=${Input.value}&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log(data.totalResults);
   
         if (page <= 1) {
           elPrev.disabled = true;
