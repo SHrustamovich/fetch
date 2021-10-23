@@ -8,7 +8,8 @@ const Input = document.getElementById('elInput')
 searchButton.addEventListener('click',function(event){
   let page = 1;
   function getData(page) {
-    fetch(`http://www.omdbapi.com/?apikey=d83224c7&s=${Input.value}&page=${page}`)
+    elFilmsList.innerHTML = "";
+    fetch(`https://www.omdbapi.com/?apikey=d83224c7&s=${Input.value}&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
   
