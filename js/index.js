@@ -5,11 +5,20 @@ const elNext = document.querySelector(".js-next");
 const searchButton = document.querySelector(".searchButton")
 const Input = document.getElementById('elInput')
 
-searchButton.addEventListener('click',function(event){
-  let page = 1;
-  function getData(page) {
-    elFilmsList.innerHTML = "";
-    fetch(`https://www.omdbapi.com/?apikey=d83224c7&s=${Input.value}&page=${page}`)
+let page = 1;
+elLoader.style.display = "none";
+
+function elSearch(event){
+  event=preventDefault();
+  let movies = Input.value.trim();
+  getData(movies,page)
+}
+
+searchButton.addEventListener('submit',elSearch)
+
+  
+  function getData(movies,page) {
+    fetch(`https://www.omdbapi.com/?apikey=d83224c7&s=${movies}&page=${page}`)
       .then((response) => response.json())
       .then((data) => {
   
@@ -31,6 +40,7 @@ searchButton.addEventListener('click',function(event){
       });
   
     function turnFilms(array) {
+      elFilmsList.innerHTML = "";
       array.forEach((element) => {
         renderFilms(element);
       });
@@ -39,10 +49,10 @@ searchButton.addEventListener('click',function(event){
   
   function renderFilms(object) {
     const newLi = document.createElement("li");
-    newLi.classList.add('list-group-item')
+    newLi.setAttribute("class","list-group-item")
     newLi.textContent = object.Title;
-  
     elFilmsList.appendChild(newLi);
+      
   }
   
   function nextPage() {
@@ -51,7 +61,8 @@ searchButton.addEventListener('click',function(event){
     elPrev.disabled = false;
     elFilmsList.innerHTML = "";
     elLoader.style.display = "block";
-    getData(page);
+    let movies = Input.value.trim();
+    getData(movies,page);
   }
   elNext.addEventListener("click", nextPage);
   
@@ -60,10 +71,10 @@ searchButton.addEventListener('click',function(event){
   
     elFilmsList.innerHTML = "";
     elLoader.style.display = "block";
-    getData(page);
+    let movies = Input.value.trim();
+    getData(movies,page);
   }
   elPrev.addEventListener("click", prevPage);
   
-  getData(page);
+  getData(movies,page);
   
-})
